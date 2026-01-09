@@ -24,12 +24,12 @@ HopscotchView hopView;
 //round variables
 int currentRound = 1;
 int totalRounds = 3;
-int roundDuration = 30 * 1000;
+int roundDuration = 7 * 60 * 1000;
 int roundStartTime;
 boolean showingRoundScreen = true;
 int roundScreenStartTime;
 boolean isRestrictedColumnRound = false;
-boolean USE_TIMER = false; //disable round timer
+boolean USE_TIMER = true; //enabled round timer
 
 void advanceToNextRound() {
   if (currentRound < totalRounds) {
@@ -101,7 +101,7 @@ void draw() {
     if (frameCount % 2 == 0) sendingOSC.sendOSC(); // ~30 Hz 
 
 
-    if (USE_TIMER && (millis() - roundStartTime > roundDuration)) {
+    if (USE_TIMER && currentRound < totalRounds && (millis() - roundStartTime > roundDuration)) {
       advanceToNextRound();
     }
   }
